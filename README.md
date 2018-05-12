@@ -15,6 +15,12 @@ create .evn file in project folder and add this line
 export SEED="a seed which was backed up some time ago"
 ```
 
+set .env file
+
+```
+source .env
+```
+
 ## Usage
 
 ```
