@@ -46,7 +46,7 @@ With no OPTION, there must be error.
 
     --attachment                140 bytes of data
 
-    --poll                      Interval to check if the chain includes the nth block or not in seconds
+    --poll                      Interval to check if the chain includes the nth block or not, in seconds
 ```
 
 Examples:
