@@ -40,13 +40,13 @@ With no OPTION, there must be error.
 
     --block                     Sequence of the block which you want to trigger
 
-    --amount                    The amount is the given number divided by 10^(precision of the token)
+    --amount                    The amount you want to send
 
-    --fee                       The fee is the given number divided by 10^(precision of the token)
+    --fee                       The fee for transaction
 
-    --attachment                140 bytes of data (it's allowed to use Uint8Array here)
+    --attachment                140 bytes of data
 
-    --poll                      Interval to check if the chain includes the nth block or not
+    --poll                      Interval to check if the chain includes the nth block or not in seconds
 ```
 
 Examples:
