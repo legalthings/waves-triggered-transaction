@@ -52,12 +52,5 @@ With no OPTION, there must be error.
 Examples:
 
 ```
-    node app.js 
-        --recipient="3PJ3RhcWyKXF6SXd6t35v7sLxYwgctY9g5c" 
-        --assetId="HPCVtLLrKZ9pK9E1AhK1bdmZsc9uiKauZjpqq5HzH3Lp" 
-        --block=997760
-        --amount=0.00000001
-        --fee=0.005
-        --attachment="Hello world"
-        --poll=5
+    node app.js --recipient="3PJ3RhcWyKXF6SXd6t35v7sLxYwgctY9g5c" --assetId="HPCVtLLrKZ9pK9E1AhK1bdmZsc9uiKauZjpqq5HzH3Lp" --block=997760 --amount=0.00000001 --fee=0.005 --attachment="Hello world" --poll=5
 ```
