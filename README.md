@@ -23,9 +23,13 @@ source .env
 
 ## Usage
 
-Usage: node app.js [OPTION]
-Do a waves transaction with [OPTION]
+Usage:
 
+```
+node app.js [OPTION]
+```
+
+Do a waves transaction with [OPTION]
 With no OPTION, there must be error.
 
 ```
