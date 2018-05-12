@@ -1,52 +1,46 @@
-// var Curl = require('node-libcurl').Curl;
 
-// setInterval(() => {
-//     var curl = new Curl();
- 
-//     curl.setOpt('URL', 'http://nodes.wavesplatform.com/blocks/headers/last');
-//     curl.setOpt('FOLLOWLOCATION', true);
-    
-//     curl.on('end', function(statusCode, body, headers) {
-//         // console.log(".");
-//         data = JSON.parse(body);
-//         if (parseInt(data.height) == 997600) {
-//             console.log("Bingo");
-//         }
-//         this.close();
-//     });
-    
-//     curl.on('error', curl.close.bind(curl));
-
-//     curl.perform();
-// }, 5000);
-
+var Curl = require('node-libcurl').Curl;
 const WavesAPI = require('waves-api');
-const Waves = WavesAPI.create(WavesAPI.MAINNET_CONFIG);
 
+var config = require('./config');
+
+const Waves = WavesAPI.create(WavesAPI.MAINNET_CONFIG);
 const seed = Waves.Seed.fromExistingPhrase(process.env.SEED);
 
-const transferData = {
+var trackingIndex = 0;
 
-    // An arbitrary address; mine, in this example
-    recipient: '3PJ3RhcWyKXF6SXd6t35v7sLxYwgctY9g5c',
+function makeTransaction(amount, fee) {
+    const transferData = {
+        recipient: config.waves.recipient,
+        assetId: config.waves.assetId,
+        amount: amount,
+        feeAssetId: 'WAVES',
+        fee: fee,
+        attachment: '',
+        timestamp: Date.now()
+    };
+    
+    Waves.API.Node.v1.assets.transfer(transferData, seed.keyPair).then((responseData) => {
+        console.log(responseData);
+    });
+}
 
-    // ID of a token, or WAVES
-    assetId: 'HPCVtLLrKZ9pK9E1AhK1bdmZsc9uiKauZjpqq5HzH3Lp',
+setInterval(() => {
+    var curl = new Curl();
 
-    // The real amount is the given number divided by 10^(precision of the token)
-    amount: 1,
+    curl.setOpt('URL', 'http://nodes.wavesplatform.com/blocks/headers/last');
+    curl.setOpt('FOLLOWLOCATION', true);
+    
+    curl.on('end', function(statusCode, body, headers) {
+        data = JSON.parse(body);
+        if (trackingIndex < config.tracking.blocks.length && parseInt(data.height) == config.tracking.blocks[trackingIndex]) {
+            makeTransaction(1, 100000);
+            trackingIndex ++;
+        }
+        this.close();
+    });
+    
+    curl.on('error', curl.close.bind(curl));
 
-    // The same rules for these two fields
-    feeAssetId: 'WAVES',
-    fee: 100000,
-
-    // 140 bytes of data (it's allowed to use Uint8Array here)
-    attachment: '',
-
-    timestamp: Date.now()
-
-};
-
-Waves.API.Node.v1.assets.transfer(transferData, seed.keyPair).then((responseData) => {
-    console.log(responseData);
-});
+    curl.perform();
+}, config.tracking.period);
