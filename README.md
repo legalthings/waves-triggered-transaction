@@ -23,12 +23,12 @@ source .env
 
 ## Usage
 
-```
 Usage: node app.js [OPTION]
 Do a waves transaction with [OPTION]
 
 With no OPTION, there must be error.
 
+```
     --recipient                 An Recipient public address
 
     --assetId                   ID of a token, or WAVES
@@ -42,8 +42,11 @@ With no OPTION, there must be error.
     --attachment                140 bytes of data (it's allowed to use Uint8Array here)
 
     --poll                      Interval to check if the chain includes the nth block or not
+```
 
 Examples:
+
+```
     node app.js 
         --recipient="3PJ3RhcWyKXF6SXd6t35v7sLxYwgctY9g5c" --assetId="HPCVtLLrKZ9pK9E1AhK1bdmZsc9uiKauZjpqq5HzH3Lp" 
         --block=997760
